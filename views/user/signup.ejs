@@ -1,0 +1,33 @@
+<div class="center-block">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Please sign up</h3>
+                </div>
+                <div class="panel-body" ng-controller="SignupCtl">
+                    <form accept-charset="UTF-8" role="form" action="/signup" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Name" name="username" type="text">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Email" name="email" type="password" value="">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Password" name="password" type="password" value="" ng-model="password1">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Password (Again)" name="password-again" type="password" value="" ng-model="password2">
+                        </div>
+                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                    </fieldset>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Or <a href="/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

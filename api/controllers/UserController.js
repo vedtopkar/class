@@ -17,7 +17,56 @@
 
 module.exports = {
     
-  
+  signup: function(req, res){
+    var email = req.param('email');
+    var name = req.param('name');
+    var password = req.param('password');
+
+    User.findOneByEmail(email).done(function(err, existing_user){
+      if(err){
+        console.log('Database error when creating user');
+        res.send(500, {error: 'DB error'});
+      } else if(user){
+        res.send(400, {error: 'Username already taken'});
+      } else {
+        // var bcrypt = require('bcrypt');
+        User.create({values: req.params}).done(function(err, user){
+          if(err){
+            req.flash.error('Error, try again');
+            res.redirect('/signup');
+          } else {
+            req.session.user = user;
+            res.send('Successfully signed up');
+          }
+        });
+      }
+    });
+  },
+
+  login: function(req, res){
+    var bcrypt = require('bcrypt');
+
+    var email = req.param('email');
+    var password = req.param('password');
+
+    User.findOneByEmail(email).done(function(err, user){
+      if(err) {
+        res.send(500, {error: "DB Error"});
+      } else {
+        if(user){
+          bcrypt.compare(password, user.password_hash, function(err, passwordMatches){
+            if(passwordMatches){
+              req.session.user = user;
+              res.redirect('/');
+            } else {
+              req.flash.error('Incorrect username or password');
+              res.redirect('/login');
+            }
+          })
+        }
+      }
+    })
+  }
 
 
   /**
